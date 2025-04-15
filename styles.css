@@ -126,6 +126,13 @@ header .tagline {
     align-items: center;
 }
 
+.regime-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    align-self: center;
+}
+
 .regime.old {
     background-color: var(--primary-light);
     border: 1px solid var(--primary-color);
