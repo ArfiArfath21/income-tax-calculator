@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Tax Calculator - Old vs New Regime</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Indian Income Tax Calculator <span class="fy">FY 2025-26</span></h1>
+            <p class="tagline">Compare Old vs New Tax Regime and optimize your tax savings</p>
+        </div>
+    </header>
+
+    <section class="intro-section">
+        <div class="container">
+            <div class="card">
+                <h2>What's This All About?</h2>
+                <p>In India, taxpayers can choose between two tax regimes - the <strong>Old Tax Regime</strong> with higher tax rates but various deductions, or the <strong>New Tax Regime</strong> with lower tax rates but fewer deductions.</p>
+                <p>This calculator helps you determine which regime will result in lower taxes for your specific financial situation.</p>
+                <div class="regime-comparison">
+                    <div class="regime old">
+                        <h3>Old Tax Regime</h3>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle tooltip-icon"></i>
+                            <div class="tooltip-content">
+                                <h4>Old Tax Regime Features</h4>
+                                <p>Higher tax rates but allows multiple deductions like HRA, 80C, 80D, home loan interest, etc.</p>
+                                <h5>Tax Slabs</h5>
+                                <ul>
+                                    <li>Up to ₹2.5 lakh: Nil</li>
+                                    <li>₹2.5-5 lakh: 5%</li>
+                                    <li>₹5-10 lakh: 20%</li>
+                                    <li>Above ₹10 lakh: 30%</li>
+                                </ul>
+                                <p>Plus 4% Health & Education Cess</p>
+                            </div>
+                        </div>
+                        <p>Higher tax rates with multiple deductions & exemptions</p>
+                        <ul class="features">
+                            <li><i class="fas fa-check"></i> HRA Exemption</li>
+                            <li><i class="fas fa-check"></i> 80C Investments (₹1.5 lakh)</li>
+                            <li><i class="fas fa-check"></i> 80D Health Insurance</li>
+                            <li><i class="fas fa-check"></i> Home Loan Benefits</li>
+                            <li><i class="fas fa-check"></i> LTA, Other Exemptions</li>
+                        </ul>
+                    </div>
+                    <div class="regime new">
+                        <h3>New Tax Regime</h3>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle tooltip-icon"></i>
+                            <div class="tooltip-content">
+                                <h4>New Tax Regime Features</h4>
+                                <p>Lower tax rates with more slabs but minimal deductions. Only standard deduction of ₹75,000 for salaried individuals.</p>
+                                <h5>Tax Slabs</h5>
+                                <ul>
+                                    <li>Up to ₹4 lakh: Nil</li>
+                                    <li>₹4-8 lakh: 5%</li>
+                                    <li>₹8-12 lakh: 10%</li>
+                                    <li>₹12-16 lakh: 15%</li>
+                                    <li>₹16-20 lakh: 20%</li>
+                                    <li>₹20-24 lakh: 25%</li>
+                                    <li>Above ₹24 lakh: 30%</li>
+                                </ul>
+                                <p>Plus 4% Health & Education Cess</p>
+                                <p>Tax rebate up to ₹12.75 lakh for salaried individuals</p>
+                            </div>
+                        </div>
+                        <p>Lower tax rates with minimal deductions</p>
+                        <ul class="features">
+                            <li><i class="fas fa-check"></i> Standard Deduction (₹75,000)</li>
+                            <li><i class="fas fa-check"></i> Higher Basic Exemption (₹4 lakh)</li>
+                            <li><i class="fas fa-check"></i> More Tax Slabs</li>
+                            <li><i class="fas fa-check"></i> Rebate up to ₹12.75 lakh</li>
+                            <li><i class="fas fa-times"></i> No other major deductions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+            <form id="tax-calculator-form">
+                <!-- Income Section -->
+                <section class="card" id="income-section">
+                    <h2>Step 1: Your Income Details</h2>
+                    <div class="form-group">
+                        <label for="annual-salary">Annual Salary (CTC)
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <p>Enter your total annual salary as per your salary slip or offer letter. This is typically your Cost to Company (CTC).</p>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="number" id="annual-salary" name="annual-salary" placeholder="e.g., 1200000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="basic-salary">Basic Salary
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <p>Basic salary is the fixed part of your salary and usually ranges between 40-60% of your CTC. Check your salary slip for the exact amount.</p>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="number" id="basic-salary" name="basic-salary" placeholder="e.g., 600000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hra-received">HRA Received
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <p>House Rent Allowance received from your employer. Usually mentioned in your salary slip. Typically 40-50% of basic salary.</p>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="number" id="hra-received" name="hra-received" placeholder="e.g., 300000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="other-income">Other Income (if any)
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <p>Include any additional income such as rental income, interest income, capital gains, or any other taxable income not part of your salary.</p>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="number" id="other-income" name="other-income" placeholder="e.g., 100000" value="0">
+                    </div>
+                </section>
+
+                <!-- Old Regime Deductions Section -->
+                <section class="card" id="deductions-section">
+                    <h2>Step 2: Deductions & Exemptions <span class="old-regime-label">(Applicable for Old Regime)</span></h2>
+                    
+                    <!-- HRA Exemption Subsection -->
+                    <div class="subsection">
+                        <h3>House Rent Allowance (HRA)
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <h4>HRA Exemption</h4>
+                                    <p>HRA exemption is calculated as the least of:</p>
+                                    <ol>
+                                        <li>Actual HRA received</li>
+                                        <li>50% of basic salary (for metro cities) or 40% of basic salary (for non-metro cities)</li>
+                                        <li>Actual rent paid minus 10% of basic salary</li>
+                                    </ol>
+                                    <p>You must be paying rent to claim this exemption.</p>
+                                </div>
+                            </div>
+                        </h3>
+                        <div class="form-group">
+                            <label for="rent-paid">Monthly Rent Paid</label>
+                            <input type="number" id="rent-paid" name="rent-paid" placeholder="e.g., 25000">
+                        </div>
+                        <div class="form-group">
+                            <label for="metro-city">Do you live in a Metro City?</label>
+                            <select id="metro-city" name="metro-city">
+                                <option value="yes">Yes (Delhi, Mumbai, Kolkata, Chennai)</option>
+                                <option value="no">No (Other Cities)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section 80C Subsection -->
+                    <div class="subsection">
+                        <h3>Section 80C Investments
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <h4>Section 80C Deductions (Max ₹1.5 lakh)</h4>
+                                    <p>Includes investments and expenses like:</p>
+                                    <ul>
+                                        <li>EPF (Employee Provident Fund)</li>
+                                        <li>PPF (Public Provident Fund)</li>
+                                        <li>ELSS (Equity Linked Saving Scheme)</li>
+                                        <li>Life Insurance Premium</li>
+                                        <li>Tax Saving Fixed Deposits (5-year lock-in)</li>
+                                        <li>Home Loan Principal Repayment</li>
+                                        <li>Tuition Fees for Children</li>
+                                        <li>National Savings Certificate (NSC)</li>
+                                        <li>Sukanya Samriddhi Yojana</li>
+                                    </ul>
+                                    <p>Maximum deduction under this section is ₹1,50,000 per year.</p>
+                                </div>
+                            </div>
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="epf-contribution">EPF Contribution (Your contribution, not employer's)</label>
+                            <input type="number" id="epf-contribution" name="epf-contribution" placeholder="e.g., 72000">
+                        </div>
+                        <div class="form-group">
+                            <label for="elss-investment">ELSS/PPF/Tax Saving FD Investment</label>
+                            <input type="number" id="elss-investment" name="elss-investment" placeholder="e.g., 50000">
+                        </div>
+                        <div class="form-group">
+                            <label for="life-insurance">Life Insurance Premium</label>
+                            <input type="number" id="life-insurance" name="life-insurance" placeholder="e.g., 25000">
+                        </div>
+                        <div class="form-group">
+                            <label for="home-loan-principal">Home Loan Principal Repayment</label>
+                            <input type="number" id="home-loan-principal" name="home-loan-principal" placeholder="e.g., 120000">
+                        </div>
+                        <div class="form-group">
+                            <label for="other-80c">Other 80C Investments</label>
+                            <input type="number" id="other-80c" name="other-80c" placeholder="e.g., 20000">
+                        </div>
+                        <div class="total-section">
+                            <span class="total-label">Total 80C (Max ₹1,50,000):</span>
+                            <span class="total-value" id="total-80c">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 80D Subsection -->
+                    <div class="subsection">
+                        <h3>Health Insurance Premium (Section 80D)
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <h4>Section 80D Deductions</h4>
+                                    <p>Deduction for health insurance premiums:</p>
+                                    <ul>
+                                        <li>For self, spouse & children: Up to ₹25,000</li>
+                                        <li>For parents below 60 years: Up to ₹25,000</li>
+                                        <li>For parents above 60 years: Up to ₹50,000</li>
+                                    </ul>
+                                    <p>Maximum possible deduction: ₹75,000 (if you and your spouse are below 60 years and parents are senior citizens)</p>
+                                </div>
+                            </div>
+                        </h3>
+                        <div class="form-group">
+                            <label for="self-health-insurance">Health Insurance Premium (Self, Spouse & Children)</label>
+                            <input type="number" id="self-health-insurance" name="self-health-insurance" placeholder="e.g., 20000">
+                        </div>
+                        <div class="form-group">
+                            <label for="parents-health-insurance">Health Insurance Premium (Parents)</label>
+                            <input type="number" id="parents-health-insurance" name="parents-health-insurance" placeholder="e.g., 35000">
+                        </div>
+                        <div class="form-group">
+                            <label for="parents-senior">Are your parents senior citizens (above 60 years)?</label>
+                            <select id="parents-senior" name="parents-senior">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Home Loan Interest Subsection -->
+                    <div class="subsection">
+                        <h3>Home Loan Interest (Section 24B)
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <h4>Home Loan Interest Deduction</h4>
+                                    <p>Deduction for interest paid on home loans:</p>
+                                    <ul>
+                                        <li>For self-occupied property: Up to ₹2,00,000</li>
+                                        <li>For let-out property: No limit (can set off against rental income)</li>
+                                    </ul>
+                                    <p>Principal repayment is covered under Section 80C (above)</p>
+                                    <p>For joint home loans, each co-borrower can claim this deduction separately based on their share.</p>
+                                </div>
+                            </div>
+                        </h3>
+                        <div class="form-group">
+                            <label for="home-loan-interest">Annual Home Loan Interest Paid</label>
+                            <input type="number" id="home-loan-interest" name="home-loan-interest" placeholder="e.g., 180000">
+                        </div>
+                        <div class="form-group">
+                            <label for="joint-home-loan">Is this a joint home loan?</label>
+                            <select id="joint-home-loan" name="joint-home-loan">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="loan-share-group" style="display: none;">
+                            <label for="loan-share">Your share in the loan (%)</label>
+                            <input type="number" id="loan-share" name="loan-share" min="1" max="100" value="50">
+                        </div>
+                    </div>
+
+                    <!-- Other Deductions Subsection -->
+                    <div class="subsection">
+                        <h3>Other Deductions
+                            <div class="tooltip-container">
+                                <i class="fas fa-info-circle tooltip-icon"></i>
+                                <div class="tooltip-content">
+                                    <h4>Additional Tax-Saving Options</h4>
+                                    <p>Various other deductions available under Income Tax Act:</p>
+                                    <ul>
+                                        <li><strong>Section 80CCD(1B):</strong> Additional ₹50,000 for NPS contribution (over and above 80C limit)</li>
+                                        <li><strong>Section 80TTA:</strong> Interest from savings account (up to ₹10,000)</li>
+                                        <li><strong>Section 80G:</strong> Donations to charitable organizations (50-100% deduction based on the organization)</li>
+                                        <li><strong>Section 80E:</strong> Interest on education loan (no upper limit)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </h3>
+                        <div class="form-group">
+                            <label for="nps-contribution">NPS Contribution (Additional 80CCD(1B))</label>
+                            <input type="number" id="nps-contribution" name="nps-contribution" placeholder="e.g., 50000">
+                        </div>
+                        <div class="form-group">
+                            <label for="savings-interest">Interest from Savings Account</label>
+                            <input type="number" id="savings-interest" name="savings-interest" placeholder="e.g., 8000">
+                        </div>
+                        <div class="form-group">
+                            <label for="education-loan-interest">Education Loan Interest</label>
+                            <input type="number" id="education-loan-interest" name="education-loan-interest" placeholder="e.g., 60000">
+                        </div>
+                        <div class="form-group">
+                            <label for="donations">Donations (80G)</label>
+                            <input type="number" id="donations" name="donations" placeholder="e.g., 10000">
+                        </div>
+                    </div>
+                </section>
+
+                <div class="calculate-btn-container">
+                    <button type="submit" id="calculate-btn" class="calculate-btn">Calculate My Tax</button>
+                </div>
+            </form>
+
+            <!-- Results Section -->
+            <section class="card result-section" id="result-section" style="display: none;">
+                <h2>Your Tax Calculation Results</h2>
+                
+                <div class="regime-results">
+                    <div class="regime-result old">
+                        <h3>Old Tax Regime</h3>
+                        <div class="result-details">
+                            <div class="result-item">
+                                <span class="result-label">Gross Total Income:</span>
+                                <span class="result-value" id="old-gross-income">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">HRA Exemption:</span>
+                                <span class="result-value" id="old-hra-exemption">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Section 80C Deduction:</span>
+                                <span class="result-value" id="old-80c-deduction">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Section 80D Deduction:</span>
+                                <span class="result-value" id="old-80d-deduction">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Home Loan Interest:</span>
+                                <span class="result-value" id="old-home-loan-interest">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Other Deductions:</span>
+                                <span class="result-value" id="old-other-deductions">₹0</span>
+                            </div>
+                            <div class="result-item total">
+                                <span class="result-label">Taxable Income:</span>
+                                <span class="result-value" id="old-taxable-income">₹0</span>
+                            </div>
+                            <div class="result-item tax">
+                                <span class="result-label">Income Tax:</span>
+                                <span class="result-value" id="old-income-tax">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Cess (4%):</span>
+                                <span class="result-value" id="old-cess">₹0</span>
+                            </div>
+                            <div class="result-item final-tax">
+                                <span class="result-label">Total Tax Payable:</span>
+                                <span class="result-value" id="old-total-tax">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="regime-result new">
+                        <h3>New Tax Regime</h3>
+                        <div class="result-details">
+                            <div class="result-item">
+                                <span class="result-label">Gross Total Income:</span>
+                                <span class="result-value" id="new-gross-income">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Standard Deduction:</span>
+                                <span class="result-value" id="new-standard-deduction">₹75,000</span>
+                            </div>
+                            <div class="result-item total">
+                                <span class="result-label">Taxable Income:</span>
+                                <span class="result-value" id="new-taxable-income">₹0</span>
+                            </div>
+                            <div class="result-item tax">
+                                <span class="result-label">Income Tax:</span>
+                                <span class="result-value" id="new-income-tax">₹0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Cess (4%):</span>
+                                <span class="result-value" id="new-cess">₹0</span>
+                            </div>
+                            <div class="result-item final-tax">
+                                <span class="result-label">Total Tax Payable:</span>
+                                <span class="result-value" id="new-total-tax">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tax-comparison">
+                    <h3>Tax Regime Comparison</h3>
+                    <div id="regime-comparison-chart" class="chart-container">
+                        <!-- Chart will be inserted here by JS -->
+                    </div>
+                    <div class="comparison-result">
+                        <p>The <span id="better-regime">Old</span> Tax Regime is better for you, saving <span id="tax-saving">₹0</span>.</p>
+                    </div>
+                </div>
+
+                <div class="tax-optimization">
+                    <h3>Tax Optimization Tips
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle tooltip-icon"></i>
+                            <div class="tooltip-content">
+                                <h4>Personalized Optimization Tips</h4>
+                                <p>These tips are based on your inputs and suggest ways to potentially reduce your tax liability further.</p>
+                            </div>
+                        </div>
+                    </h3>
+                    <ul id="optimization-tips">
+                        <!-- Will be populated by JS -->
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="recalculate-btn" class="secondary-btn">Recalculate</button>
+                    <button id="download-btn" class="primary-btn">Download Summary</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="info-section" id="info-section">
+        <div class="container">
+            <div class="card">
+                <h2>Understanding Income Tax in India
+                    <div class="tooltip-container">
+                        <i class="fas fa-info-circle tooltip-icon"></i>
+                        <div class="tooltip-content">
+                            <p>This section provides educational information about income tax in India to help you make informed decisions.</p>
+                        </div>
+                    </div>
+                </h2>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Old vs New Tax Regime: Who Should Choose What?</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Old Tax Regime is generally better for:</strong></p>
+                            <ul>
+                                <li>Individuals with significant investments in tax-saving instruments</li>
+                                <li>People paying high rent or having home loans</li>
+                                <li>Those with high insurance premiums</li>
+                                <li>People with substantial deductions under various sections</li>
+                            </ul>
+                            <p><strong>New Tax Regime is generally better for:</strong></p>
+                            <ul>
+                                <li>Individuals with few or no investments in tax-saving instruments</li>
+                                <li>People with income below ₹12.75 lakh (due to high rebate)</li>
+                                <li>Those who prefer simplicity over tax planning</li>
+                                <li>Individuals who don't pay rent or don't have home loans</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Common Tax-Saving Investments Explained</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul class="investment-list">
+                                <li>
+                                    <h4>Public Provident Fund (PPF)</h4>
+                                    <p>A government-backed long-term savings scheme with tax benefits. 15-year lock-in period with extensions available in blocks of 5 years. Interest rate is fixed quarterly (usually around 7-8%).</p>
+                                </li>
+                                <li>
+                                    <h4>Employee Provident Fund (EPF)</h4>
+                                    <p>Retirement savings scheme for salaried employees. Both employer and employee contribute (typically 12% of basic salary each). Tax-free interest and eligible for Section 80C deduction.</p>
+                                </li>
+                                <li>
+                                    <h4>Equity Linked Saving Scheme (ELSS)</h4>
+                                    <p>Tax-saving mutual funds that invest primarily in equity markets. Shortest lock-in period (3 years) among all 80C options. Potential for higher returns but with market risks.</p>
+                                </li>
+                                <li>
+                                    <h4>National Pension System (NPS)</h4>
+                                    <p>Voluntary retirement savings scheme. Offers tax benefits under Section 80C (₹1.5 lakh) and additional deduction of ₹50,000 under Section 80CCD(1B). Partial withdrawal allowed, and 60% of corpus can be withdrawn tax-free at maturity.</p>
+                                </li>
+                                <li>
+                                    <h4>5-Year Tax Saving Fixed Deposit</h4>
+                                    <p>Fixed deposit with a lock-in period of 5 years. Offers fixed returns (typically 6-7%) with eligible Section 80C deduction. Interest earned is taxable.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Understanding HRA Exemption</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>House Rent Allowance (HRA) exemption is one of the most significant tax benefits for salaried individuals who live in rented accommodation.</p>
+                            <h4>How HRA Exemption Works:</h4>
+                            <p>The exemption is calculated as the least of the following three amounts:</p>
+                            <ol>
+                                <li>Actual HRA received from the employer</li>
+                                <li>50% of basic salary (for metro cities) or 40% of basic salary (for non-metro cities)</li>
+                                <li>Actual rent paid minus 10% of basic salary</li>
+                            </ol>
+                            <h4>Example:</h4>
+                            <p>Let's say your:</p>
+                            <ul>
+                                <li>Basic Salary: ₹50,000 per month (₹6,00,000 per year)</li>
+                                <li>HRA Received: ₹20,000 per month (₹2,40,000 per year)</li>
+                                <li>Rent Paid: ₹25,000 per month (₹3,00,000 per year)</li>
+                                <li>Location: Metro city</li>
+                            </ul>
+                            <p>The calculation would be:</p>
+                            <ol>
+                                <li>Actual HRA: ₹2,40,000</li>
+                                <li>50% of Basic (metro): ₹3,00,000</li>
+                                <li>Rent paid - 10% of Basic: ₹3,00,000 - ₹60,000 = ₹2,40,000</li>
+                            </ol>
+                            <p>The exemption would be ₹2,40,000 (the least of the three).</p>
+                            <p><strong>Important Notes:</strong></p>
+                            <ul>
+                                <li>You need to actually pay rent to claim this exemption</li>
+                                <li>If annual rent exceeds ₹1,00,000, your landlord's PAN details are required</li>
+                                <li>HRA exemption is not available under the New Tax Regime</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Home Loan Tax Benefits</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Home loans offer dual tax benefits - on both principal repayment and interest payment.</p>
+                            <h4>Principal Repayment (Section 80C):</h4>
+                            <ul>
+                                <li>Principal portion of your EMI qualifies for deduction under Section 80C</li>
+                                <li>Maximum deduction: ₹1.5 lakh (combined with other 80C investments)</li>
+                                <li>Property should not be sold within 5 years of possession, or the benefit will be reversed</li>
+                            </ul>
+                            <h4>Interest Payment (Section 24B):</h4>
+                            <ul>
+                                <li>Interest portion of your EMI qualifies for deduction under Section 24B</li>
+                                <li>For self-occupied property: Up to ₹2 lakh per year</li>
+                                <li>For let-out property: No limit (full interest can be claimed)</li>
+                            </ul>
+                            <h4>Joint Home Loan Benefits:</h4>
+                            <p>If you've taken a joint home loan with a family member:</p>
+                            <ul>
+                                <li>Each co-borrower can claim deductions separately based on their share</li>
+                                <li>Each can claim up to ₹2 lakh for interest and up to ₹1.5 lakh for principal</li>
+                                <li>This effectively multiplies the tax benefit</li>
+                            </ul>
+                            <h4>Additional Benefit for First-Time Home Buyers (Section 80EE):</h4>
+                            <ul>
+                                <li>Additional deduction of up to ₹50,000 for interest paid</li>
+                                <li>Loan should be sanctioned between April 1, 2016, and March 31, 2017</li>
+                                <li>Loan amount should be up to ₹35 lakh</li>
+                                <li>Property value should not exceed ₹50 lakh</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Disclaimer: This calculator is designed for educational purposes only. Tax laws are complex and subject to change. Please consult a tax professional for personalized advice.</p>
+            <p>&copy; 2025 Indian Tax Calculator. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
