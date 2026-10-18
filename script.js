@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // New regime, section 87A: no tax up to this *taxable* income (₹12.75 lakh of
+    // salary once the ₹75,000 standard deduction is taken off).
+    const NEW_REGIME_REBATE_LIMIT = 1200000;
+
     // Form Elements
     const taxCalculatorForm = document.getElementById('tax-calculator-form');
     const calculateBtn = document.getElementById('calculate-btn');
@@ -251,20 +255,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Calculate tax under new regime
+    // `income` is the taxable income, i.e. after the standard deduction.
     function calculateNewRegimeTax(income) {
-        let tax = 0;
-        
         if (income <= 400000) {
             return 0;
         }
         
-        // Apply rebate under section 87A if income is up to ₹12.75 lakh for salaried individuals
-        if (income <= 1275000) {
-            tax = calculateNewRegimeTaxWithoutRebate(income);
-            return 0; // Full rebate for income up to ₹12.75 lakh
+        // Section 87A: full rebate if taxable income is up to ₹12 lakh
+        // (₹12.75 lakh of salary for salaried individuals).
+        if (income <= NEW_REGIME_REBATE_LIMIT) {
+            return 0;
         }
         
-        return calculateNewRegimeTaxWithoutRebate(income);
+        // Marginal relief just above the limit: the tax cannot exceed the
+        // income earned above ₹12 lakh.
+        return Math.min(
+            calculateNewRegimeTaxWithoutRebate(income),
+            income - NEW_REGIME_REBATE_LIMIT
+        );
     }
     
     function calculateNewRegimeTaxWithoutRebate(income) {
@@ -404,8 +412,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Tips for New Regime optimization or general tips
-        if (taxableIncomeNew > 1275000 && taxableIncomeNew < 1400000) {
-            addTip(`Your income is slightly above ₹12.75 lakh under the New Regime. Consider making tax-saving investments to bring it down below this threshold to avail the rebate.`);
+        if (taxableIncomeNew > NEW_REGIME_REBATE_LIMIT && taxableIncomeNew < 1325000) {
+            addTip(`Your taxable income is slightly above ₹12 lakh (₹12.75 lakh of salary) under the New Regime. Consider making tax-saving investments to bring it down below this threshold to avail the rebate.`);
         }
         
         // General tip for those with high income
